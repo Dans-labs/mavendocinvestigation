@@ -71,4 +71,6 @@ object Main extends App {
 	bf || f
 	bf || bt
 	bf || bf
+
+	bf || (bt && st)
 }

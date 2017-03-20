@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>nl.knaw.dans.shared</groupId>
+        <artifactId>dans-scala-prototype</artifactId>
+        <version>1.43</version>
+    </parent>
+
     <groupId>io.github.rvanheest</groupId>
     <artifactId>maven-doc-investigation</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -20,6 +26,11 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>2.11.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_2.11</artifactId>
         </dependency>
     </dependencies>
 
