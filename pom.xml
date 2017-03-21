@@ -4,22 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>nl.knaw.dans.shared</groupId>
-        <artifactId>dans-scala-prototype</artifactId>
-        <version>1.43</version>
-    </parent>
-
     <groupId>io.github.rvanheest</groupId>
     <artifactId>maven-doc-investigation</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <timestamp>${maven.build.timestamp}</timestamp><!-- wrapped system property
-            in own property as work-around for http://jira.codehaus.org/browse/MRESOURCES-99 -->
-        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -27,46 +14,15 @@
             <artifactId>scala-library</artifactId>
             <version>2.11.7</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_2.11</artifactId>
-        </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>DANS</id>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <url>http://maven.dans.knaw.nl/</url>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>DANS</id>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <url>http://maven.dans.knaw.nl/</url>
-        </pluginRepository>
-    </pluginRepositories>
 
     <build>
         <sourceDirectory>src/main/scala</sourceDirectory>
-        <testSourceDirectory>src/test/scala</testSourceDirectory>
         <plugins>
-            <plugin>
-                <groupId>org.scalatest</groupId>
-                <artifactId>scalatest-maven-plugin</artifactId>
-                <version>1.0</version>
-            </plugin>
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.2.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -81,52 +37,8 @@
                     <scalaVersion>2.11.7</scalaVersion>
                     <args>
                         <arg>-target:jvm-1.8</arg>
-                        <arg>-deprecation</arg>
-                        <arg>-feature</arg>
                     </args>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
-                <!-- Default configuration for all reports -->
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <linksource>true</linksource>
-                    <quiet>true</quiet>
-                    <bottom><![CDATA[Copyright 2013, <a href="http://www.dans.knaw.nl">DANS<a>
-	                                    <code>build: yworks-uml-doclet ${maven.build.timestamp}</code>
-	                                    ]]></bottom>
-                    <overview>src/main/scala/overview.html</overview>
-                    <doclet>ydoc.doclets.YStandard</doclet>
-                    <docletPath>${project.build.directory}/dans-build-resources/yworks-uml-doclet/lib/ydoc.jar:${project.build.directory}/dans-build-resources/yworks-uml-doclet/resources</docletPath>
-                    <additionalparam>-umlautogen</additionalparam>
-                    <additionalJOptions>
-                        <additionalJOption>-J-Xmx1g</additionalJOption>
-                        <additionalJOption>-J-Djava.awt.headless=true</additionalJOption>
-                    </additionalJOptions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadoc</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>aggregate</id>
-                        <goals>
-                            <goal>aggregate</goal>
-                        </goals>
-                        <phase>site</phase>
-                        <configuration>
-                            <!-- Specific configuration for the aggregate report -->
-                            <stylesheetfile>stylesheet.css</stylesheetfile>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

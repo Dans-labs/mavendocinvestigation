@@ -1,76 +1,19 @@
 package io.github.rvanheest.triedLogic
 
-import scala.util.{Failure, Success, Try}
+import scala.util.{ Success, Try }
 
 object Main extends App {
 
-	val st: Try[Boolean] = Success(true)
-	val sf: Try[Boolean] = Success(false)
-	val f: Try[Boolean] = Failure(new Exception("foobar"))
-	val bt: Boolean = true
-	val bf: Boolean = false
+	implicit class TriedBooleanLogic(val b: Boolean) extends AnyVal {
+		def &&(t2: => Try[Boolean]): Try[Boolean] = {
+			if (b) t2
+			else Success(false)
+		}
+	}
 
-	// AND
-	st && st
-	st && sf
-	st && f
-	st && bt
-	st && bf
+	def foo = Success(false)
+	def bar(implicit x: Int) = Success(true)
 
-	sf && st
-	sf && sf
-	sf && f
-	sf && bt
-	sf && bf
-
-	f && st
-	f && sf
-	f && f
-	f && bt
-	f && bf
-
-	bt && st
-	bt && sf
-	bt && f
-	bt && bt
-	bt && bf
-
-	bf && st
-	bf && sf
-	bf && f
-	bf && bt
-	bf && bf
-
-	// OR
-	st || st
-	st || sf
-	st || f
-	st || bt
-	st || bf
-
-	sf || st
-	sf || sf
-	sf || f
-	sf || bt
-	sf || bf
-
-	f || st
-	f || sf
-	f || f
-	f || bt
-	f || bf
-
-	bt || st
-	bt || sf
-	bt || f
-	bt || bt
-	bt || bf
-
-	bf || st
-	bf || sf
-	bf || f
-	bf || bt
-	bf || bf
-
-	bf || (bt && st)
+	def fooCall: Try[Boolean] = true && foo
+	def barCall(implicit implParam: Int): Try[Boolean] = true && bar
 }
